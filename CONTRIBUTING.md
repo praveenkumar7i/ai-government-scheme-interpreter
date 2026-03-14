@@ -11,6 +11,8 @@ Thanks for contributing! This guide defines how our 4-member team collaborates e
 All day-to-day work happens in `feature/*` branches and merges into `develop` through Pull Requests.
 Only release-ready code is promoted from `develop` to `main`.
 
+Enforcement: all future development must come through Pull Requests into `develop`, and only verified code may be merged from `develop` into `main`.
+
 ## 1) Branch naming conventions
 
 Use lowercase, hyphen-separated branch names:
