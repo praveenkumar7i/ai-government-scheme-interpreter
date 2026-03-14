@@ -80,13 +80,6 @@ Suggested flow:
 - Open PR from `develop` → `main`
 - Tag release after merge (e.g., `v0.1.0`)
 
-
-## Enforcement policy
-
-- All future development must happen in `feature/*` branches and be merged via Pull Requests into `develop`.
-- Direct commits to `main` are not allowed.
-- Only verified and approved code is promoted from `develop` to `main` through a release PR.
-
 ## 5) Branch naming conventions
 
 Use lowercase, hyphen-separated names.
