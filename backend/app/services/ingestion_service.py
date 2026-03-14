@@ -73,6 +73,7 @@ def process_pdf(document_id: uuid.UUID, db: Session) -> int:
     reader = PdfReader(document.file_path)
     all_chunks: list[dict] = []
     chunk_count = 0
+    total_pages = len(reader.pages)
 
     for page_idx, page in enumerate(reader.pages, start=1):
         raw = page.extract_text() or ""
@@ -101,6 +102,7 @@ def process_pdf(document_id: uuid.UUID, db: Session) -> int:
                 )
                 chunk_count += 1
 
+    document.total_pages = total_pages
     document.processing_status = "ready"
     db.commit()
 

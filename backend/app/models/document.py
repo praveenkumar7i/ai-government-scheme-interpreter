@@ -12,12 +12,18 @@ class SchemeDocument(Base):
     __tablename__ = "scheme_documents"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    uploaded_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     scheme_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    scheme_code: Mapped[str | None] = mapped_column(String(100), nullable=True)
     scheme_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
     state: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    source_language: Mapped[str | None] = mapped_column(String(32), nullable=True)
     file_path: Mapped[str] = mapped_column(String(1024), nullable=False)
+    file_hash: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    total_pages: Mapped[int | None] = mapped_column(Integer, nullable=True)
     processing_status: Mapped[str] = mapped_column(String(50), default="queued")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 class DocumentChunk(Base):

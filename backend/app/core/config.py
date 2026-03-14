@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     embeddings_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     sarvam_api_key: str = ""
     sarvam_base_url: str = "https://api.sarvam.ai"
+    jwt_secret_key: str = "change-me"
+    jwt_algorithm: str = "HS256"
+    jwt_expire_minutes: int = 60
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
