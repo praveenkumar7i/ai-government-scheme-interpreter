@@ -1,21 +1,34 @@
 # Contributing to AI Government Scheme Interpreter
 
-This guide helps a **4-member team** collaborate effectively across frontend, backend, RAG, and DevOps.
+Thanks for contributing! This guide defines how our 4-member team collaborates effectively across frontend, backend, RAG, and DevOps.
 
-## Team collaboration model (4 members)
+## Workflow overview
 
-- **Frontend engineer**: `frontend/`
-- **Backend engineer**: `backend/`, `database/`
-- **AI/RAG engineer**: `rag/`, `vector_db/`, `backend/app/services/`
-- **DevOps/QA engineer**: `scripts/`, CI/CD, release process
+- `main` → stable production code
+- `develop` → active development and integration
+- `feature/*` → individual feature branches
 
-## 1) Branch naming rules
+All day-to-day work happens in `feature/*` branches and merges into `develop` through Pull Requests.
+Only release-ready code is promoted from `develop` to `main`.
 
-Use this naming pattern:
+Enforcement: all future development must come through Pull Requests into `develop`, and only verified code may be merged from `develop` into `main`.
+
+## 1) Branch naming conventions
+
+Use lowercase, hyphen-separated branch names:
 
 ```text
 feature/<scope>-<short-description>
 ```
+
+Recommended scopes:
+
+- `frontend`
+- `backend`
+- `rag`
+- `devops`
+- `docs`
+- `qa`
 
 Examples:
 
@@ -24,77 +37,116 @@ Examples:
 - `feature/rag-pipeline`
 - `feature/devops-setup`
 
-Branch model:
+## 2) Development workflow
 
-- `main` → stable production code
-- `develop` → active integration branch
-- `feature/*` → individual developer branches
+1. Sync local branches:
+   ```bash
+   git checkout develop
+   git pull origin develop
+   ```
+2. Create a feature branch.
+3. Implement code + tests + documentation.
+4. Run local quality checks before pushing.
+5. Open PR to `develop`.
+6. Address review comments and merge after approvals.
+7. Periodically release `develop` into `main` when production-ready.
 
-## 2) Pull request guidelines
+## 3) How to create feature branches
 
-- Open PRs from `feature/*` to `develop`.
-- Include in every PR:
-  - summary of change
-  - motivation/business context
-  - testing commands and outcomes
-  - screenshots for UI changes
-- Keep PRs small and focused for faster review.
-- Use squash merge into `develop` after approval.
+Always branch from `develop`:
 
-Release flow:
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/<scope>-<short-description>
+```
 
-- `develop` → `main` only for verified release-ready code.
+Push your branch:
 
-## 3) Commit message format
+```bash
+git push -u origin feature/<scope>-<short-description>
+```
 
-Use Conventional Commits:
+## 4) Pull request workflow
+
+- **Base branch:** `develop` (for regular feature work)
+- **Compare branch:** your `feature/*` branch
+
+PR description must include:
+
+- Summary of changes
+- Why the change is needed
+- Testing evidence (commands + results)
+- Screenshots for UI changes
+- Rollback considerations (if applicable)
+
+Merge policy:
+
+- CI must pass
+- Required reviewers must approve
+- Prefer **Squash and merge** into `develop`
+- Delete feature branch after merge
+
+## 5) How to submit pull requests
+
+1. Ensure commits are clean and tests pass.
+2. Rebase or merge latest `develop` to resolve conflicts.
+3. Push branch updates.
+4. Open PR to `develop`.
+5. Request reviewers (at least one owner from impacted area).
+6. Respond to comments quickly and push fixes.
+
+## 6) Commit message format
+
+Use Conventional Commit style:
 
 ```text
 <type>(<scope>): <short summary>
 ```
 
+Common types:
+
+- `feat` → new functionality
+- `fix` → bug fix
+- `docs` → documentation changes
+- `refactor` → code restructuring without behavior change
+- `test` → tests added/updated
+- `chore` → maintenance tasks
+
 Examples:
 
-- `feat(frontend): add citation viewer component`
-- `feat(backend): add auth login endpoint`
-- `fix(rag): improve hybrid retrieval scoring`
-- `docs(repo): update development workflow`
+- `feat(backend): add document upload endpoint`
+- `feat(rag): add chunk reranking logic`
+- `fix(frontend): handle upload error state`
+- `docs(repo): add contributing guide`
 
-Recommended types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
+## 7) Code review process
 
-## 4) Development workflow
+### Reviewer expectations
 
-1. Sync `develop`:
-   ```bash
-   git checkout develop
-   git pull origin develop
-   ```
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/<scope>-<short-description>
-   ```
-3. Build + test locally.
-4. Push branch and open PR into `develop`.
-5. Address review comments.
-6. Merge after approvals and passing checks.
-7. Promote `develop` to `main` only through a release PR.
+- Validate correctness and edge cases
+- Verify tests and local reproducibility
+- Check security/privacy implications (PDF handling, auth, PII)
+- Confirm architecture alignment with `docs/system-architecture-and-development-plan.md`
 
-## 5) Code review process
+### Approval policy (team of 4)
 
-Review goals:
+- Minimum 1 approval from area owner
+- Cross-functional changes should have 2 approvals when possible
+- No self-merge without at least 1 review approval (except emergency hotfixes)
 
-- correctness and edge cases
-- security/privacy implications
-- test coverage and reproducibility
-- architecture alignment with project docs
+### Review SLA
 
-Approval policy:
+- First review target: within 1 business day
+- Author should respond to comments within 1 business day
 
-- minimum 1 reviewer approval required
-- cross-cutting changes should get 2 approvals when possible
-- no direct pushes to `main`
+## Team ownership suggestion
 
-Review SLA:
+- Frontend engineer: `frontend/`
+- Backend engineer: `backend/`, `database/`
+- AI/RAG engineer: `rag/`, `vector_db/`, AI services in `backend/app/services/`
+- DevOps/QA engineer: `scripts/`, CI/CD workflows, deployment config
 
-- first review target: within 1 business day
-- author response target: within 1 business day
+---
+
+For branch strategy details, see also: `docs/git-workflow.md`.
