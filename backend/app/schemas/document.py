@@ -20,3 +20,4 @@ class AskResponse(BaseModel):
     citations: list[dict]
     confidence: float
     translations: dict[str, str]
+    eligibility_reasoning: dict

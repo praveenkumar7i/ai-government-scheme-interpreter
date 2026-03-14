@@ -24,4 +24,5 @@ def ask(request: AskRequest):
         citations=result["citations"],
         confidence=result["confidence"],
         translations=translations,
+        eligibility_reasoning=result["eligibility_reasoning"],
     )
