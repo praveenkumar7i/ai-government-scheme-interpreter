@@ -51,5 +51,3 @@ Detailed architecture and roadmap are documented in:
 
 - Contribution guidelines: `CONTRIBUTING.md`
 - Suggested GitHub issues backlog: `docs/github-issues-development-backlog.md`
-
-- Development workflow guide: `docs/development-workflow.md`
